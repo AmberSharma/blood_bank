@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Create Event</title>
+        <script src="http://localhost/blood_bank/trunk/js/jquery.tools.min.js"></script>
+
+<script>
+
+ function assign()
+  {
+  $.ajax({
+  type: "POST",    
+  url: '../controller/adminController.php?method=assignTo',
+  data: $('#frmid1').serialize(),
+  success: function(data){
+  $("#tab1").hide();
+  $("#tab3").hide();
+  $("#tab5").hide();
+  $("#addmore").hide();
+  $("#tab4").show();
+  $("#tab4").html(data);
+  }
+  });
+  }
+  
+ </script>
+    </head>
+    
+    <body>
+        <form id="frmid1">
+        <table>
+            <tr>
+                <td colspan="2" style="text-align: center; color: red;">Asterisk Fields are required</td>
+            </tr>
+            <tr>
+                <td>
+                    Event Name *:
+                </td>
+                <td>
+                    <input type="text" name="event_name">
+                </td>       
+            </tr>
+            <tr>
+                <td>
+                    Location *:
+                </td>
+                <td>
+                    <textarea rows="4" cols="20" name="location"> Location.... </textarea>
+                </td>       
+            </tr>
+            <tr>
+                <td>
+                    Date Of Event *:
+                </td>
+                <td>
+                    <input type="text" name="date_of_event" />
+                </td>       
+            </tr>
+            <tr>
+                <td>
+                    Assigned To:
+                </td>
+                <td>
+                    <?php for($i=0;$i<count($get);$i++) {?>
+                    <select  name="employee">
+                        <option value="<?php print_r($get[$i]['id']); ?>"><?php print_r($get[$i]['name']); ?></option>
+                    </select>
+                    <?php } ?>
+                </td>       
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="button" value="Allocate" onclick="assign()"></td>
+            </tr>
+        </table>
+        </form>   
+
+    </body>
+</html>
