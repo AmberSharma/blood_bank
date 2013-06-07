@@ -1,4 +1,7 @@
 <?php 
+require_once '/var/www/blood_bank/trunk/libraries/constant.php';
+?>
+<?php 
 if($_REQUEST['msg']){
 	echo '<script type="text/javascript">alert("Wrong Password or user name"); </script>';
 
@@ -12,7 +15,7 @@ if($_REQUEST['msg']){
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
 <title></title>
-<link rel="stylesheet" type="text/css" media="all" href="css/style.css">
+<link rel="stylesheet" type="text/css" media="all" href="<?php echo SITEPATH; ?>css/style.css">
 </head>
 
 
@@ -79,7 +82,7 @@ if($_REQUEST['msg']){
 			<ul class="xoxo">
 			<li id="archives-2" class="widget-container widget_archive"><h3 class="widget-title">Login</h3></li>
                         
-                        <form action="http://localhost/blood_bank/trunk/controller/adminController.php?method=login" method="POST">
+                        <form action="<?php echo SITEPATH; ?>controller/adminController.php?method=login" method="POST">
                            <table>
                                <tr>
                                    <td>

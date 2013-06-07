@@ -1,9 +1,9 @@
 <html>
     <head>
         <title>Create Event</title>
-        <script src="<?php echo SITEPATH; ?>js/jquery.tools.min.js"></script> 
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-         <link rel="stylesheet" href="<?php echo SITEPATH; ?>css/s.css" />
+         <link rel="stylesheet" href="../css/s.css" />
 
 <script>
 

@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Create Event</title>
-        <script src="<?php echo SITEPATH; ?>js/jquery.tools.min.js"></script>
+        <script src="http://localhost/blood_bank/trunk/js/jquery.tools.min.js"></script>
 
 <script>
 
