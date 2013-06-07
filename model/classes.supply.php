@@ -9,6 +9,7 @@ class Supply extends model {
 	protected $address;
 	protected $profession;
 	protected $date;
+	protected $quantity;
     
     /**
 	 * @return the $name
@@ -108,10 +109,26 @@ class Supply extends model {
 		$this->date = $date;
 	}
 
+	public function getQuantity() {
+		return $this->quantity;
+	}
+
+	public function setQuantity($quantity) {
+		$this->quantity = $quantity;
+	}
+
 	public function bloodavailableFetch(){
         $this->db->Fields ( array ( "id","blood", "quantity"));
         $this->db->From ("blood_avail");
         $this->db->Select();
+        return $this->db->resultArray();
+    }
+	public function fetchDonorName(){
+        $this->db->Fields ( array ("name", "email_id"));
+        $this->db->From ("donor");
+	$this->db->Like("email_id",$_REQUEST['strval']);
+        $this->db->Select();
+	echo $this->db->lastQuery();die;
         return $this->db->resultArray();
     }
     public function SupplyBlood(){
@@ -121,7 +138,7 @@ class Supply extends model {
     	return $this->db->resultArray();
     }
     public function RecipientDetails(){
-    	$this->db->fields(array("id"=>' ',"name"=>$this->getName(),"address"=>$this->getAddress(),"contact_no"=>$this->getContact(),"email_id"=>$this->getEmail(),"profession"=>$this->getProfession(),"reason"=>$this->getReason(),"date_received"=>$this->getDate() ));
+    	$this->db->fields(array("id"=>' ',"name"=>$this->getName(),"address"=>$this->getAddress(),"contact_no"=>$this->getContact(),"email_id"=>$this->getEmail(),"profession"=>$this->getProfession(),"reason"=>$this->getReason(),"date_received"=>$this->getDate() ,"quantity"=>$this->getQuantity() , "blood_id"=>$_REQUEST['id']));
     	$this->db->From ("recipient");
     	$this->db->insert();
     	return $this->db->resultArray();

@@ -16,16 +16,22 @@ class Bloodsupply
 	}
 	public function supplyBlood()
 	{
-		echo $_REQUEST['id'];
-		include ("../view/recipientinfo.php");die;
+		include ("../view/recipientinfo.php");
+	}
+	public function fetchdonorname() 
+	{
 		require_once ("../model/classes.supply.php");
 		$obj = new Supply ();
-		$result = $obj->SupplyBlood ();
-		include ("../view/bloodavailable.php");
+		$result = $obj->fetchDonorName ();
+		if($result)
+		{
+			die("1");
+		}
+		//include ("../view/fetcheddonors.php");
 	}
 	public function recipientDetails()
 	{
-		//echo $_REQUEST['id'];
+		//print_r($_REQUEST);
 		require_once ("../model/classes.supply.php");
 		$obj = new Supply ();
 		$obj->setAddress($_REQUEST['recipient_address']);
@@ -35,6 +41,7 @@ class Bloodsupply
 		$obj->setAddress($_REQUEST['recipient_profession']);
 		$obj->setAddress($_REQUEST['recipient_date']);
 		$obj->setAddress($_REQUEST['recipient_reason']);
+		$obj->setQuantity($_REQUEST['quantity']);
 		$result = $obj->RecipientDetails ();
 		include ("../view/bloodavailable.php");
 	}

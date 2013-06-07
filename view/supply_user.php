@@ -24,6 +24,7 @@ $(document).ready(function()
      $("#tab1").show();
      $("#tab3").hide();
      $("#tab4").hide();
+	$("#status").hide();
   }
   
   
