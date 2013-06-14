@@ -1,3 +1,7 @@
+<?php 
+require_once '/var/www/blood_bank/trunk/libraries/constant.php';
+?>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script>
  
   
@@ -5,7 +9,7 @@
   {
 	  $.ajax
 	  ({
-		  url: '../controller/supplyController.php?method=recipientDetails',
+		  url: '../controller/supplyController.php?method=recipientDetails&id='+id,
 			data:$("#recipientform").serialize(),
 		  success: function(data)
 		  {
@@ -14,18 +18,51 @@
 	  });
   }
 
-	function fetchdonor(argument)
-  {
-	  $.ajax
-	  ({
-		  url: '../controller/supplyController.php?method=fetchdonorname',
-			data:"strval=" + argument,
-		  success: function(data)
-		  {
+function emailindb(argument)
+{
+	$.ajax
+	({
+		url: '../controller/supplyController.php?method=emailindb',
+		data:"strval=" + argument,
+		success: function(data)
+		{
 			if($.trim(data) == "1")
 			{
 				$("#status").show();
-			  $("#status").html("correct");
+			  	$("#status").html("Present");
+			}
+			else
+			{
+				$("#status").show();
+			  	$("#status").html("Not Present");
+				//document.getElementById('name').value = $.trim(data); 
+			}
+		  }
+	  });
+  }
+
+function fetchdonor(argument)
+{
+	$.ajax
+	({
+		url: '../controller/supplyController.php?method=fetchdonorname',
+		data:"strval=" + argument,
+		success: function(data)
+		{
+			if($.trim(data) == "1")
+			{
+				$("#status").show();
+			  	$("#status").html("Not Present");
+			}
+			else
+			{
+				var resp=jQuery.parseJSON(data);
+				$.each(resp, function(key, val) 
+				{
+					document.getElementById(key).value = val; 
+				});
+				
+			}
 		  }
 	  });
   }
@@ -36,12 +73,21 @@
             <tr>
                 <td colspan="2" style="text-align: center; color: red;">Asterisk Fields are required</td>
             </tr>
+		<tr>
+                <td>
+                    Email Id *:
+                </td>
+                <td>
+                    <input type="text" name="recipient_email" onkeyup="emailindb(this.value)" onblur="fetchdonor(this.value)"/>
+			<label id="status"/>
+                </td>       
+            </tr>
             <tr>
                 <td>
                     Name *:
                 </td>
                 <td>
-                    <input type="text" name="recipient_name" />
+                    <input type="text" name="recipient_name" id="0"/>
                 </td>       
             </tr>
             <tr>
@@ -49,24 +95,16 @@
                     Address *:
                 </td>
                 <td>
-                    <input type="text" name="recipient_address"/>
+                    <input type="text" name="recipient_address" id="1"/>
                </td>       
             </tr>
-            <tr>
-                <td>
-                    Email Id *:
-                </td>
-                <td>
-                    <input type="text" name="recipient_email" onkeyup="fetchdonor(this.value)"/>
-			<label id="status"/>
-                </td>       
-            </tr>
+            
             <tr>
                 <td>
                     Contact No:
                 </td>
                 <td>
-                    <input type="text" name="recipient_contactno" />
+                    <input type="text" name="recipient_contactno" id="2"/>
                </td>       
             </tr>
             <tr>

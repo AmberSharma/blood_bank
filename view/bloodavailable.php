@@ -1,10 +1,11 @@
 <script>
 
-  function supply(id)
+  function supply(id ,quantity)
   {
+	
 	  $.ajax
 	  ({
-		  url: '../controller/supplyController.php?method=supplyBlood&id='+id,
+		  url: '../controller/supplyController.php?method=supplyBlood&id='+id+"&quantity="+quantity,
 		  success: function(data)
 		  {
 			  $("#tab1").append($.trim(data));
@@ -21,7 +22,7 @@ echo "</tr>";
 for($i = 0 ; $i < count($result) ;$i++)
 {
 	echo "<tr>";
-	echo "<td>".$result[$i]['id']."</td><td>".$result[$i]['blood']."</td><td>".$result[$i]['quantity']."</td><td><a href='#' onclick='supply(".$result[$i]['id'].")'>Supply </a></td>";
+	echo "<td>".$result[$i]['id']."</td><td>".$result[$i]['blood']."</td><td>".$result[$i]['quantity']."</td><td><a href='#' onclick='supply(".$result[$i]['id'].",".$result[$i]['quantity'].")'>Supply </a></td>";
 	echo "</tr>";
 }
 ?>

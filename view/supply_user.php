@@ -1,4 +1,6 @@
-
+<?php 
+require_once '/var/www/blood_bank/trunk/libraries/constant.php';
+?>
 <html dir="ltr" lang="en-US">
 
 <head>
@@ -6,8 +8,8 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" type="text/css" media="all"
-	href="../css/style.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	href="<?php echo SITEPATH; ?>css/style.css">
+<script src="<?php echo SITEPATH; ?>js/jquery.tools.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -75,6 +77,7 @@ $(document).ready(function()
 							<li id="menu-item-52"
 								class="menu-item menu-item-type-custom menu-item-52"><a href="#">Upload
 									Photos</a></li>
+							<li id="menu-item-52" class="menu-item menu-item-type-custom menu-item-52"><a href="../view/logout.php">Logout</a></li>
 						</ul>
 					</div>
 

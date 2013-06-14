@@ -124,11 +124,18 @@ class Supply extends model {
         return $this->db->resultArray();
     }
 	public function fetchDonorName(){
-        $this->db->Fields ( array ("name", "email_id"));
+        $this->db->Fields ( array ("name", "address" , "contact_no"));
+        $this->db->From ("donor");
+	$this->db->Where(array("email_id"=>$_REQUEST['strval']));
+        $this->db->Select();
+        return $this->db->resultArray();
+    }
+
+	public function fetchEmail(){
+        $this->db->Fields ( array ("email_id"));
         $this->db->From ("donor");
 	$this->db->Like("email_id",$_REQUEST['strval']);
         $this->db->Select();
-	echo $this->db->lastQuery();die;
         return $this->db->resultArray();
     }
     public function SupplyBlood(){
@@ -140,8 +147,26 @@ class Supply extends model {
     public function RecipientDetails(){
     	$this->db->fields(array("id"=>' ',"name"=>$this->getName(),"address"=>$this->getAddress(),"contact_no"=>$this->getContact(),"email_id"=>$this->getEmail(),"profession"=>$this->getProfession(),"reason"=>$this->getReason(),"date_received"=>$this->getDate() ,"quantity"=>$this->getQuantity() , "blood_id"=>$_REQUEST['id']));
     	$this->db->From ("recipient");
-    	$this->db->insert();
-    	return $this->db->resultArray();
+    	if($this->db->insert());
+	{
+		$this->db->Fields(array("quantity"));		
+		$this->db->From ("blood_avail");
+		$this->db->Where(array("id"=>$_REQUEST['id']));
+		$this->db->Select();
+		$a = $this->db->resultArray();
+		$b = $a[0]['quantity'] - $this->getQuantity();
+		$this->db->Fields(array("quantity" => $b));
+		$this->db->From ("blood_avail");
+		$this->db->Where(array("id"=>$_REQUEST['id']));
+		if($this->db->Update())
+		{
+			//echo $this->db->lastQuery();die;
+			return "1";
+		}	
+	}
+	//echo $this->db->lastQuery();
+	
+    	
     }
 }
 ?>
